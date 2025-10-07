@@ -4,6 +4,7 @@ on: [push, pull_request]
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   build:
@@ -33,6 +34,13 @@ jobs:
     - name: Run tests
       run: |
         make ci
+    - name: Upload coverage to Qlty
+      if: success()
+      uses: qltysh/qlty-action/coverage@v2
+      with:
+        oidc: true
+        files: coverage.xml
+        add-prefix: src/requests/
 
   no_chardet:
     name: "No Character Detection"
@@ -53,6 +61,13 @@ jobs:
       - name: Run tests
         run: |
           make ci
+      - name: Upload coverage to Qlty
+        if: success()
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          oidc: true
+          files: coverage.xml
+          add-prefix: src/requests/
 
   urllib3:
     name: 'urllib3 1.x'
@@ -73,3 +88,10 @@ jobs:
       - name: Run tests
         run: |
           make ci
+      - name: Upload coverage to Qlty
+        if: success()
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          oidc: true
+          files: coverage.xml
+          add-prefix: src/requests/
