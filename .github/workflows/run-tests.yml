@@ -36,7 +36,10 @@ jobs:
         make ci
     - name: Upload coverage to Qlty
       if: success()
-      uses: qlty-cloud/coverage-action@v1
+      uses: qltysh/qlty-action/coverage@v2
+      with:
+        oidc: true
+        files: coverage.xml
 
   no_chardet:
     name: "No Character Detection"
@@ -59,7 +62,10 @@ jobs:
           make ci
       - name: Upload coverage to Qlty
         if: success()
-        uses: qlty-cloud/coverage-action@v1
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          oidc: true
+          files: coverage.xml
 
   urllib3:
     name: 'urllib3 1.x'
@@ -82,4 +88,7 @@ jobs:
           make ci
       - name: Upload coverage to Qlty
         if: success()
-        uses: qlty-cloud/coverage-action@v1
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          oidc: true
+          files: coverage.xml
