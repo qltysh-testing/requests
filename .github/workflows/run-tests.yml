@@ -4,6 +4,7 @@ on: [push, pull_request]
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   build:
@@ -33,6 +34,9 @@ jobs:
     - name: Run tests
       run: |
         make ci
+    - name: Upload coverage to Qlty
+      if: success()
+      uses: qlty-cloud/coverage-action@v1
 
   no_chardet:
     name: "No Character Detection"
@@ -53,6 +57,9 @@ jobs:
       - name: Run tests
         run: |
           make ci
+      - name: Upload coverage to Qlty
+        if: success()
+        uses: qlty-cloud/coverage-action@v1
 
   urllib3:
     name: 'urllib3 1.x'
@@ -73,3 +80,6 @@ jobs:
       - name: Run tests
         run: |
           make ci
+      - name: Upload coverage to Qlty
+        if: success()
+        uses: qlty-cloud/coverage-action@v1
