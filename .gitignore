@@ -1,6 +1,7 @@
 .coverage
 MANIFEST
 coverage.xml
+coverage.lcov
 nosetests.xml
 junit-report.xml
 pylint.txt

@@ -31,8 +31,19 @@ jobs:
       run: |
         make
     - name: Run tests
+      if: matrix.os != 'ubuntu-22.04' || matrix.python-version != '3.13'
       run: |
         make ci
+    - name: Run tests with coverage
+      if: matrix.os == 'ubuntu-22.04' && matrix.python-version == '3.13'
+      run: |
+        make ci-coverage
+    - name: Upload coverage to Qlty
+      if: matrix.os == 'ubuntu-22.04' && matrix.python-version == '3.13' && github.event_name == 'push'
+      uses: qltysh/qlty-action/coverage@v2
+      with:
+        token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+        files: coverage.lcov
 
   no_chardet:
     name: "No Character Detection"

@@ -7,6 +7,10 @@ test:
 ci:
 	python -m pytest tests --junitxml=report.xml
 
+ci-coverage:
+	python -m coverage run --rcfile .coveragerc --source=src/requests -m pytest tests --junitxml=report.xml
+	python -m coverage lcov -o coverage.lcov
+
 test-readme:
 	python setup.py check --restructuredtext --strict && ([ $$? -eq 0 ] && echo "README.rst and HISTORY.rst ok") || echo "Invalid markup in README.rst or HISTORY.rst!"
 
